@@ -2,8 +2,8 @@
   <div class="data-container">
     <div class="data-title">TB_Curr_Heat_Furnace_Data</div>
     <div class="data-list">
-      <div v-for="(item, index) in list" :key="index" class="data-list-item">
-        <span class="name">{{ `${item.name}` }}:</span>
+      <div v-for="(item, index) in dataList" :key="index" class="data-list-item">
+        <span class="name">{{ `${item.name}` }}: </span>
         <span>{{ `${item.value}` }}</span>
       </div>
     </div>
@@ -28,86 +28,126 @@ export default {
     GaugeBoxComponent,
     BarChartComponent
   },
+  props: {
+    currFurnaceParaInfo: {
+      type: Object,
+      default: () => {
+        return {}
+      } 
+    },
+  },
   data() {
     return {
-      list: [{
+    }
+  },
+  computed: {
+    dataList() {
+      const { currFurnaceParaInfo } = this
+      const list = [{
         name: 'Data_ID',
-        value: 0
+        value: currFurnaceParaInfo?.dataId
       }, {
         name: 'Furnace_ID',
-        value: 0
+        value: currFurnaceParaInfo?.furnaceId
       }, {
         name: 'Furnace_No',
-        value: 0
+        value: currFurnaceParaInfo?.furnaceNo
       }, {
         name: 'Furnace_Name',
-        value: 0
+        value: currFurnaceParaInfo?.furnaceName
       }, {
-        name: 'Para_Num',
-        value: 0
+        name: 'Furnace_T',
+        value: currFurnaceParaInfo?.furnaceT
       }, {
-        name: 'Common_T',
-        value: 0
+        name: 'Gas_Press',
+        value: currFurnaceParaInfo?.gasPress
       }, {
-        name: 'Seg_NO',
-        value: 0
+        name: 'Gas_flux',
+        value: currFurnaceParaInfo?.gasFlux
       }, {
-        name: 'RT_TIMEa',
-        value: 0
+        name: 'Gas_Temp',
+        value: currFurnaceParaInfo?.gasTemp
       }, {
-        name: 'RT_TIMEb',
-        value: 0
+        name: 'Gas Accum',
+        value: currFurnaceParaInfo?.gasAccum
       }, {
-        name: 'SP_TEMP',
-        value: 0
+        name: 'PCV503 PV',
+        value: currFurnaceParaInfo?.pcv503Pv
       }, {
-        name: 'SP_TIMEa',
-        value: 0
+        name: 'Start stop_flag',
+        value: currFurnaceParaInfo?.startStopFlag
       }, {
-        name: 'SP_TIMEb',
-        value: 0
+        name: 'Start_Stop_time',
+        value: currFurnaceParaInfo?.startStopTime
       }, {
-        name: 'SP_SteelType',
-        value: 0
+        name: 'PONO',
+        value: currFurnaceParaInfo?.pono
       }, {
-        name: 'SP_MODEL',
-        value: 0
+        name: 'HTNO',
+        value: currFurnaceParaInfo?.htno
       }, {
-        name: 'Data_Datetime',
-        value: '2024-05-26 09:30:12'
-      }],
-      gaugeData: [{
+        name: 'MoldModel',
+        value: currFurnaceParaInfo?.moldModel
+      }, {
+        name: 'MoldNumber',
+        value: currFurnaceParaInfo?.moldNumber
+      }, {
+        name: 'SteelType',
+        value: currFurnaceParaInfo?.steelType
+      }, {
+        name: 'Para Num',
+        value: currFurnaceParaInfo?.paraNum
+      }, {
+        name: 'Heat TO',
+        value: currFurnaceParaInfo?.heatT0
+      }, {
+        name: 'Data Datetime',
+        value: currFurnaceParaInfo?.dataDatetime
+      }]
+      return list
+    },
+    gaugeData() {
+      const { currFurnaceParaInfo } = this
+      const list = [{
         name: '总设定时间',
-        value: 7.5
+        value: currFurnaceParaInfo?.allSpTime
       }, {
         name: '总运行时间',
-        value: 7.5
+        value: currFurnaceParaInfo?.allRtTime
       }, {
         name: '总剩余时间',
-        value: 7.5
-      }],
-      barData: [{
+        value: currFurnaceParaInfo?.allRemainTime
+      }]
+      return list
+    },
+    barData() {
+      const { currFurnaceParaInfo } = this
+      const list = [{
         name: 'Inner01',
-        value: 165
+        value: currFurnaceParaInfo?.furnaceTInner01
       }, {
         name: 'Inner02',
-        value: 165
+        value: currFurnaceParaInfo?.furnaceTInner02
       }, {
         name: 'Inner03',
-        value: 165
+        value: currFurnaceParaInfo?.furnaceTInner03
       }, {
         name: 'Inner04',
-        value: 165
+        value: currFurnaceParaInfo?.furnaceTInner04
       }, {
         name: 'Inner05',
-        value: 165
+        value: currFurnaceParaInfo?.furnaceTInner05
       }, {
         name: 'Inner06',
-        value: 165
+        value: currFurnaceParaInfo?.furnaceTInner06
       }, {
         name: 'Inner07',
-        value: 165
+        value: currFurnaceParaInfo?.furnaceTInner07
+      }, {
+        name: 'Inner08',
+        value: currFurnaceParaInfo?.furnaceTInner08
       }]
+      return list
     }
   },
   methods: {
@@ -133,8 +173,9 @@ export default {
   &-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 24px;
-    margin: 58px 0 34px;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 48px 0 34px;
     &-item {
       width: 270px;
       height: 48px;
@@ -146,7 +187,7 @@ export default {
       background-size: 100% 100%;
       .name {
         font-weight: bold;
-        font-size: 16px;
+        font-size: 14px;
       }
     }
   }
@@ -154,11 +195,12 @@ export default {
     flex: 1;
     display: flex;
     gap: 50px;
-    padding: 0 24px 24px;
+    padding: 0 24px 20px;
     .gauge-box {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      gap: 16px;
     }
     .bar-box {
       flex: 1;

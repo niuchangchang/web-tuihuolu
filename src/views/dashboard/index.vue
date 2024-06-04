@@ -2,15 +2,15 @@
   <VScaleScreen width="1920" height="1080">
     <div class="app-container">
       <HeaderComponent title="退火炉监控应用平台" @tabChange="handleTabChange" />
-      <ContentComponent v-if="tabIndex === 1" />
-      <ChartComponent v-else />
+      <ContentComponent v-if="tabIndex === 1" :currFurnaceParaList="currFurnaceParaList" :currFurnaceParaInfo="currFurnaceParaInfo" />
+      <ChartComponent v-else :heatParaDataList="heatParaDataList" :heatParaDataInfo="heatParaDataInfo" />
     </div>
   </VScaleScreen>
 </template>
 
 <script>
 import VScaleScreen from "v-scale-screen"
-import { getData } from '@/api/dashboard'
+import { getCurrFurnacePara, getCurrFurnaceParaInfo, getHeatParaData, getHeatParaDataInfo } from '@/api/dashboard'
 import HeaderComponent from '@/components/HeaderComponent'
 import ContentComponent from '@/views/dashboard/components/ContentComponent.vue'
 import ChartComponent from '@/views/dashboard/components/ChartComponent.vue'
@@ -25,33 +25,59 @@ export default {
   },
   data() {
     return {
-      tabIndex: 1,
+      tabIndex: 2,
+      currFurnaceParaList: [],
+      currFurnaceParaInfo: {},
+      heatParaDataList: [],
+      heatParaDataInfo: {}
     }
   },
   computed: {
-    maxProgressValue() {
-      // const { processData } = this
-      return 1
+  },
+  watch: {
+    tabIndex: {
+      immediate: true,
+      deep: true,
+      handler(val) {
+        switch(val) {
+          case 1: 
+            this.getCurrFurnaceParaFun()
+            this.getCurrFurnaceParaInfoFun()
+          break;
+          case 2: 
+            this.getHeatParaDataFun()
+            // this.getHeatParaDataInfoFun()
+          break;
+        }
+      }
     }
   },
-  mounted() {
-    // this.getDataFun(date.month)
+  async mounted() {
   },
   methods: {
     handleTabChange(e) {
       this.tabIndex = e
     },
-    getDataFun(month) {
-      getData({
-        month: month,
-      }).then(res => {
-        console.log('res', res)
+    async getCurrFurnaceParaFun() {
+      getCurrFurnacePara(1).then(res => {
+        this.currFurnaceParaList = res.rows
       })
     },
-    // monthChange(e) {
-    //   console.log('===点击的柱子月份', e.month)
-    //   this.selectedMonth = e.month
-    // },
+    async getCurrFurnaceParaInfoFun() {
+      getCurrFurnaceParaInfo(1).then(res => {
+        this.currFurnaceParaInfo = res.data
+      })
+    },
+    async getHeatParaDataFun() {
+      getHeatParaData(0).then(res => {
+        this.heatParaDataList = res.rows
+      })
+    },
+    async getHeatParaDataInfoFun() {
+      getHeatParaDataInfo(0).then(res => {
+        this.heatParaDataInfo = res.data
+      })
+    },
   }
 }
 </script>

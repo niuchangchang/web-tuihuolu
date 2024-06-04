@@ -3,18 +3,18 @@
     <div class="search-box">
       <div class="search-item">
         <span>Furnace_No</span>
-        <el-input v-model="furnaceNo" size="mini" placeholder=""></el-input>
+        <el-input v-model="furnaceNo" size="small" placeholder=""></el-input>
       </div>
       <div class="search-item">
         <span>Furnace_ID</span>
-        <el-input v-model="furnaceId" size="mini" placeholder=""></el-input>
+        <el-input v-model="furnaceId" size="small" placeholder=""></el-input>
       </div>
       <div class="search-item">
         <span>Date</span>
-        <el-input v-model="date" size="mini" placeholder=""></el-input>
+        <el-input v-model="date" size="small" placeholder=""></el-input>
       </div>
       <div class="search-item">
-        <el-button type="primary" size="mini" icon="el-icon-search" class="search-item-button">查询</el-button>
+        <el-button type="primary" size="small" icon="el-icon-search" class="search-item-button">查询</el-button>
       </div>
     </div>
     <div class="search-list">
@@ -119,11 +119,11 @@ export default {
       background: #5B8FF9;
       &::before {
         position: absolute;
-        top: 7px;
+        top: 5px;
         left: 12px;
         content: '';
-        width: 16px;
-        height: 16px;
+        width: 12px;
+        height: 12px;
         background: url(@/assets/search_icon.png) 100% 100% no-repeat;
         background-size: 100% 100%;
       }

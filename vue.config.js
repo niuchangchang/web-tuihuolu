@@ -12,7 +12,7 @@ module.exports = defineConfig({
     open: false,
     proxy: {
       '/backend/': {
-        target: 'http://172.168.10.1:8027/backend',
+        target: 'http://101.34.15.44:8011',
         ws: true,
         changeOrigin: true,
         pathRewrite: { '^/backend': '' }

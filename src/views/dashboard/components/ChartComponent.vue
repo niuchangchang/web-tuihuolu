@@ -13,10 +13,10 @@
         </div>
         <div class="switch-item">
           <span>游标显示</span>
-          <el-switch v-model="updateData"></el-switch>
+          <el-switch v-model="showDataZoom"></el-switch>
         </div>
       </div>
-      <LineChartComponent :chartData="chartData"></LineChartComponent>
+      <LineChartComponent :chartData="chartData" :showDataZoom="showDataZoom" :heatParaDataList="heatParaDataList" @line-click="clickLine"></LineChartComponent>
     </div>
   </div>
 </template>
@@ -35,31 +35,71 @@ export default {
     ChartBoxComponent,
     LineChartComponent
   },
+  props: {
+    heatParaDataList: {
+      type: Array,
+      default: () => {
+        return []
+      } 
+    },
+    heatParaDataInfo: {
+      type: Object,
+      default: () => {
+        return {}
+      } 
+    },
+  },
   data() {
     return {
       updateData: true,
-      chartData: [{
-        name: 'Inner01',
-        data: [100, 200, 300, 200, 100, 50, 160]
+      showDataZoom: true
+    }
+  },
+  computed: {
+    chartData() {
+      const { heatParaDataList } = this
+      // toDo 优化
+      const chartList = {
+        Inner01: [],
+        Inner02: [],
+        Inner03: [],
+        Inner04: [],
+        Inner05: [],
+        Inner06: [],
+      }
+      heatParaDataList.map(item => {
+        chartList.Inner01.push(item.tCurr)
+        chartList.Inner02.push(item.tfPara)
+        chartList.Inner03.push(item.t0Cal)
+        chartList.Inner04.push(item.t1Surface)
+        chartList.Inner05.push(item.deltaT1T2)
+        chartList.Inner06.push(item.t3Center)
+      })
+      const list = [{
+        name: '生产炉温',
+        data: chartList.Inner01
       }, {
-        name: 'Inner02',
-        data: [200, 300, 200, 100, 500, 150, 260]
+        name: '工艺炉温',
+        data: chartList.Inner02
       }, {
-        name: 'Inner03',
-        data: [300, 230, 300, 200, 100, 50, 160]
+        name: '计算炉温',
+        data: chartList.Inner03
       }, {
-        name: 'Inner04',
-        data: [200, 120, 100, 200, 100, 50, 160]
+        name: '表面温度',
+        data: chartList.Inner04
       }, {
-        name: 'Inner05',
-        data: [50, 210, 200, 200, 100, 50, 160]
+        name: '重心温度',
+        data: chartList.Inner05
       }, {
-        name: 'Inner06',
-        data: [120, 160, 250, 200, 100, 50, 160]
-      }, {
-        name: 'Inner07',
-        data: [150, 260, 130, 200, 100, 50, 160]
+        name: '中心温度',
+        data: chartList.Inner06
       }]
+      return list
+    }
+  },
+  methods: {
+    clickLine(e) {
+      console.log('===paraId', e)
     }
   }
 }

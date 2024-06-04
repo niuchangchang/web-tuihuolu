@@ -25,7 +25,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data
-    if (res.code !== 0) {
+    if (res.code !== 200) {
       ElMessage({
         message: res.msg || 'Error',
         type: 'error',
@@ -33,7 +33,7 @@ service.interceptors.response.use(
       })
       return Promise.reject(new Error(res.msg || 'Error'))
     } else {
-      return res.data
+      return res
     }
   },
   error => {

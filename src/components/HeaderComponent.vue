@@ -69,6 +69,7 @@ const handleSelect = (index) => {
     .logo {
       width: 84px;
       height: 42px;
+      margin-bottom: 8px;
       background: url(@/assets/logo.png) 100% 100% no-repeat;
       background-size: 100% 100%;
     }

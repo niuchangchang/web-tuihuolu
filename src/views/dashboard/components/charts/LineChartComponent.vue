@@ -14,7 +14,17 @@ export default {
       default: () => {
         return {}
       }
-    }
+    },
+    showDataZoom: {
+      type: Boolean,
+      default: true
+    },
+    heatParaDataList: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    },
   },
   setup(props, { emit }) {
     let myChart = null
@@ -29,51 +39,42 @@ export default {
       () => props.chartData,
       () => initChart()
     );
+    watch(
+      () => props.showDataZoom,
+      () => initChart()
+    );
+    // watch(
+    //   () => props.heatParaDataList,
+    //   () => initChart()
+    // );
     const initChart = function () {
       myChart.setOption({
         color: ['#5B8FF9', '#5AD8A6', '#5D7092', '#F6BD16', '#E8684A', '#6DC8EC'],
         grid: {
-          left: 0,
-          right: 0,
-          bottom: 40,
+          left: 20,
+          right: 32,
+          bottom: props.showDataZoom ? 60 : 40,
           top: 100,
           containLabel: true
         },
-        // tooltip: {
-        //   show: true,
-        //   trigger: 'axis',
-        //   axisPointer: {
-        //     type: 'none',
-        //   },
-        //   backgroundColor: 'rgba(0,35,68,0.9)',
-        //   borderColor: '#0085FF',
-        //   textStyle: {
-        //     color: '#A1B2CF'
-        //   },
-        //   fontSize: 16,
-        //   padding: [14, 16],
-        //   formatter: function (params) {
-        //     var result = ''
-        //     result += '<div style="display: flex; flex-direction: column;">'
-        //     result += '<div style="margin-bottom: 5px;">'
-        //     result += params[0].name + '月'
-        //     result += '</div>'
-        //     result += '<div style="flex: 1; display: flex; justify-content: space-between; margin-bottom: 5px;"><div style="flex: 1; margin-right: 10px;">'
-        //     result += params[0].marker + params[0].seriesName
-        //     result += '</div><div style="color: #FFFFFF;">'
-        //     result += formatNumber(params[0].data, '元') + '元'
-        //     result += '</div></div>'
-        //     result += '<div style="flex: 1; display: flex; justify-content: space-between"><div style="flex: 1; margin-right: 10px;">'
-        //     result += params[2].marker + params[2].seriesName
-        //     result += '</div><div style="color: #FFFFFF;">'
-        //     result += params[2].data ? (params[2].data + '%') : params[2].data
-        //     result += '</div></div></div>'
-        //     return result
-        //   },
-        //   label: {
-        //     show: false
-        //   },
-        // },
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: "#06031B",
+          textStyle: {
+            color: '#10CBF1'
+          },
+          borderWidth: 0,
+          fontSize: 16,
+          padding: [0],
+          formatter: function(params) {
+            var str = `<div style="background:url( ${require("@/assets/line_tooltip_bg.png")}) no-repeat center center; background-size: 100% 100%; width: 148px; height: 185px; padding: 10px 12px 14px; display: flex; flex-direction: column; justify-content: space-between;">`;
+            params.forEach(function (item) {
+              str += `<div> ${item.seriesName}:  ${item.value}</div>`;
+            });
+            str+='</div>'
+            return str;
+          }
+        },
         legend: {
           textStyle: {
             color: '#8C8C8C',
@@ -84,6 +85,9 @@ export default {
           borderRadius: 2,
           itemGap: 22,
           icon: 'rect'
+        },
+        dataZoom: {
+          show: props.showDataZoom
         },
         xAxis: {
           type: 'category',
@@ -96,7 +100,7 @@ export default {
           axisLine: {
             show: false,
           },
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          // data: props.chartData[0]
         },
         yAxis: [{
           type: 'value',
@@ -127,11 +131,15 @@ export default {
         })
       })
 
-      myChart.on('click', function (params) {
-        emit('mix-month-change', {
-          month: params.name.slice(0, params.name.indexOf('月')),
-        })
-      })
+      myChart.getZr().on('click',function (params){
+        var pointInPixel= [params.offsetX, params.offsetY];
+        if (myChart.containPixel('grid',pointInPixel)) {
+          var xIndex=myChart.convertFromPixel({seriesIndex:0},[params.offsetX, params.offsetY])[0];
+          console.log(`=====点击里第${xIndex}个，值为`, props.heatParaDataList[xIndex])
+          const clickItem = props.heatParaDataList[xIndex]
+          emit('line-click', clickItem.paraId)
+        }
+      });
 
       myChart.resize()
     }
@@ -144,6 +152,6 @@ export default {
 <style lang="scss" scoped>
 .charts-container {
   width: 100%;
-  height: 540px;
+  height: 100%;
 }
 </style>

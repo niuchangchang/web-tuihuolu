@@ -38,6 +38,23 @@ export default {
           top: 0,
           containLabel: true
         },
+        tooltip: {
+          // trigger: 'axis',
+          backgroundColor: "#06031B",
+          textStyle: {
+            color: '#10CBF1'
+          },
+          borderWidth: 0,
+          fontSize: 16,
+          padding: [0],
+          formatter: function(params) {
+            var str = `<div style="background:url( ${require("@/assets/bar_tooltip_bg.png")}) no-repeat center center; background-size: 100% 100%; width: 112px; height: 65px; padding: 10px; display: flex; flex-direction: column; justify-content: space-between;">`;
+            str += `<div> ${params.name}</div>`;
+            str += `<div> 温度:  ${params.data}℃</div>`;
+            str+='</div>'
+            return str;
+          }
+        },
         xAxis: {
           type: 'value',
           axisLabel: {

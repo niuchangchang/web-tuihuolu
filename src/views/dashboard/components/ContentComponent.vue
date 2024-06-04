@@ -2,8 +2,8 @@
   <div class="app-box">
     <SelectComponent></SelectComponent>
     <div class="content-box">
-      <ParamBoxComponent></ParamBoxComponent>
-      <DataBoxComponent></DataBoxComponent>
+      <ParamBoxComponent :currFurnaceParaList="currFurnaceParaList"></ParamBoxComponent>
+      <DataBoxComponent :currFurnaceParaInfo="currFurnaceParaInfo"></DataBoxComponent>
     </div>
   </div>
 </template>
@@ -20,6 +20,20 @@ export default {
     ParamBoxComponent,
     DataBoxComponent
   },
+  props: {
+    currFurnaceParaList: {
+      type: Array,
+      default: () => {
+        return []
+      } 
+    },
+    currFurnaceParaInfo: {
+      type: Object,
+      default: () => {
+        return {}
+      } 
+    },
+  },
   data() {
     return {
       data: {}
@@ -33,6 +47,7 @@ export default {
     flex: 1;
     display: flex;
     gap: 24px;
+    overflow: hidden;
   }
 }
 </style>

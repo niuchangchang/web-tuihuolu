@@ -6,9 +6,11 @@
         <span>参数名称</span>
         <span>参数值</span>
       </div>
-      <div v-for="(item, index) in list" :key="index" class="param-list-row param-list-item">
-        <span>{{ `${item.name}` }}</span>
-        <span>{{ `${item.value}` }}</span>
+      <div class="param-list-content">
+        <div v-for="(item, index) in dataList" :key="index" class="param-list-row param-list-item">
+          <span>{{ `${item.name}` }}</span>
+          <span>{{ `${item.value}` }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -16,54 +18,70 @@
 <script>
 export default {
   name: 'ParamBoxComponent',
+  props: {
+    currFurnaceParaList: {
+      type: Array,
+      default: () => {
+        return []
+      } 
+    },
+  },
   data() {
     return {
-      list: [{
-        name: 'Data_ID',
-        value: 0
-      }, {
-        name: 'Furnace_ID',
-        value: 0
-      }, {
-        name: 'Furnace_No',
-        value: 0
-      }, {
-        name: 'Furnace_Name',
-        value: 0
-      }, {
-        name: 'Para_Num',
-        value: 0
-      }, {
-        name: 'Common_T',
-        value: 0
-      }, {
-        name: 'Seg_NO',
-        value: 0
-      }, {
-        name: 'RT_TIMEa',
-        value: 0
-      }, {
-        name: 'RT_TIMEb',
-        value: 0
-      }, {
-        name: 'SP_TEMP',
-        value: 0
-      }, {
-        name: 'SP_TIMEa',
-        value: 0
-      }, {
-        name: 'SP_TIMEb',
-        value: 0
-      }, {
-        name: 'SP_SteelType',
-        value: 0
-      }, {
-        name: 'SP_MODEL',
-        value: 0
-      }, {
-        name: 'Data_Datetime',
-        value: '2024-05-26  09:30:12'
-      }]
+    }
+  },
+  computed: {
+    dataList() {
+      const { currFurnaceParaList } = this
+      const list = currFurnaceParaList.map(item => {
+        return [{
+          name: 'Data_ID',
+          value: item.dataId
+        }, {
+          name: 'Furnace_ID',
+          value: item.furnaceId
+        }, {
+          name: 'Furnace_No',
+          value: item.furnaceNo
+        }, {
+          name: 'Furnace_Name',
+          value: item.furnaceName
+        }, {
+          name: 'Para_Num',
+          value: item.paraNum
+        }, {
+          name: 'Common_T',
+          value: item.commonT
+        }, {
+          name: 'Seg_NO',
+          value: item.segNo
+        }, {
+          name: 'RT_TIMEa',
+          value: item.rtTimea
+        }, {
+          name: 'RT_TIMEb',
+          value: item.rtTimeb
+        }, {
+          name: 'SP_TEMP',
+          value: item.spTemp
+        }, {
+          name: 'SP_TIMEa',
+          value: item.spTimea
+        }, {
+          name: 'SP_TIMEb',
+          value: item.spTimeb
+        }, {
+          name: 'SP_SteelType',
+          value: item.spSteeltype
+        }, {
+          name: 'SP_MODEL',
+          value: item.spModel
+        }, {
+          name: 'Data_Datetime',
+          value: item.dataDatetime
+        }]
+      })
+      return list.flat()
     }
   },
   methods: {
@@ -93,6 +111,18 @@ export default {
     flex-direction: column;
     overflow-y: auto;
     background: rgba(82,125,243,0.14);
+    &-box {
+      display: flex;
+      flex-direction: column;
+    }
+    &-title {
+      color: #6C9BFF;
+      font-weight: bold;
+    }
+    &-content {
+      height: 100%;
+      overflow-y: auto;
+    }
     &-row {
       display: flex;
       height: 40px;
@@ -106,10 +136,6 @@ export default {
         background: url(@/assets/param_item_bg.png) 100% 100% no-repeat;
         background-size: 100% 100%;
       }
-    }
-    &-title {
-      color: #6C9BFF;
-      font-weight: bold;
     }
     &-item {
       color: #FFFAF9;
