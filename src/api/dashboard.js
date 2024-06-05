@@ -19,15 +19,16 @@ export function getCurrFurnaceParaInfo(data) {
 // 历史炉次的工艺数据
 export function getHeatParaData(data) {
   return request({
-    url: `/heatParaData/list?furnaceId=${data}`,
-    method: 'get',
+    url: `/heatParaData/list`,
+    method: 'post',
+    data
   })
 }
 
 // 历史炉次的工艺数据
-export function getHeatParaDataInfo(data) {
+export function getHeatParaDataInfo(furnaceNo, dataNo) {
   return request({
-    url: `/heatParaData/getInfo?paraId=${data}`,
+    url: `/heatParaData/getInfo?furnaceNo=${furnaceNo}&dataNo=${dataNo}`,
     method: 'get',
   })
 }

@@ -2,8 +2,8 @@
   <div class="app-box">
     <div class="top-box">
       <HeatBoxComponent></HeatBoxComponent>
-      <SearchBoxComponent></SearchBoxComponent>
-      <ChartBoxComponent></ChartBoxComponent>
+      <SearchBoxComponent :heatParaDataInfo="heatParaDataInfo"></SearchBoxComponent>
+      <ChartBoxComponent :heatParaDataInfo="heatParaDataInfo"></ChartBoxComponent>
     </div>
     <div class="bottom-box">
       <div class="switch-box">
@@ -16,7 +16,7 @@
           <el-switch v-model="showDataZoom"></el-switch>
         </div>
       </div>
-      <LineChartComponent :chartData="chartData" :showDataZoom="showDataZoom" :heatParaDataList="heatParaDataList" @line-click="clickLine"></LineChartComponent>
+      <LineChartComponent :chartData="chartData" :showDataZoom="showDataZoom" :heatParaDataList="heatParaDataList" @lineClick="handleClickLine"></LineChartComponent>
     </div>
   </div>
 </template>
@@ -58,48 +58,31 @@ export default {
   computed: {
     chartData() {
       const { heatParaDataList } = this
-      // toDo 优化
-      const chartList = {
-        Inner01: [],
-        Inner02: [],
-        Inner03: [],
-        Inner04: [],
-        Inner05: [],
-        Inner06: [],
-      }
-      heatParaDataList.map(item => {
-        chartList.Inner01.push(item.tCurr)
-        chartList.Inner02.push(item.tfPara)
-        chartList.Inner03.push(item.t0Cal)
-        chartList.Inner04.push(item.t1Surface)
-        chartList.Inner05.push(item.deltaT1T2)
-        chartList.Inner06.push(item.t3Center)
-      })
       const list = [{
         name: '生产炉温',
-        data: chartList.Inner01
+        data: heatParaDataList.map(item => item.tCurr)
       }, {
         name: '工艺炉温',
-        data: chartList.Inner02
+        data: heatParaDataList.map(item => item.tfPara)
       }, {
         name: '计算炉温',
-        data: chartList.Inner03
+        data: heatParaDataList.map(item => item.t0Cal)
       }, {
         name: '表面温度',
-        data: chartList.Inner04
+        data: heatParaDataList.map(item => item.t1Surface)
       }, {
         name: '重心温度',
-        data: chartList.Inner05
+        data: heatParaDataList.map(item => item.deltaT2T3)
       }, {
         name: '中心温度',
-        data: chartList.Inner06
+        data: heatParaDataList.map(item => item.t3Center)
       }]
       return list
     }
   },
   methods: {
-    clickLine(e) {
-      console.log('===paraId', e)
+    handleClickLine(e) {
+      this.$emit('lineClick', e)
     }
   }
 }

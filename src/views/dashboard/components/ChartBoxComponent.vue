@@ -4,7 +4,7 @@
       <VerBarChartComponent :barChartData="barData"></VerBarChartComponent>
     </div>
     <div class="gauge-box">
-      <GaugeBoxComponent v-for="(item, index) in gaugeData" :key="index" :title="item.name" :value="item.value" :width="104" :height="95"></GaugeBoxComponent>
+      <GaugeBoxComponent v-for="(item, index) in gaugeData" :key="index" :title="item.name" :value="item.value"></GaugeBoxComponent>
     </div>
   </div>
 </template>
@@ -18,40 +18,67 @@ export default {
     VerBarChartComponent,
     GaugeBoxComponent,
   },
+  props: {
+    heatParaDataInfo: {
+      type: Object,
+      default: () => {
+        return {}
+      } 
+    },
+  },
   data() {
     return {
-      gaugeData: [{
+    }
+  },
+  computed: {
+    gaugeData() {
+      const { heatParaDataInfo } = this
+      const list = [{
         name: '总设定时间',
-        value: 7.5
+        value: heatParaDataInfo?.allSpTime
       }, {
         name: '总运行时间',
-        value: 7.5
+        value: heatParaDataInfo?.allRtTime
       }, {
         name: '总剩余时间',
-        value: 7.5
-      }],
-      barData: [{
-        name: 'Inner01',
-        value: 165
-      }, {
-        name: 'Inner02',
-        value: 15
-      }, {
-        name: 'Inner03',
-        value: 65
-      }, {
-        name: 'Inner04',
-        value: 105
-      }, {
-        name: 'Inner05',
-        value: 65
-      }, {
-        name: 'Inner06',
-        value: 45
-      }, {
-        name: 'Inner07',
-        value: 125
+        value: heatParaDataInfo?.allRemainTime
       }]
+      return list
+    },
+    barData() {
+      const { heatParaDataInfo } = this
+      const list = [{
+        name: '生产炉温', // T_Curr
+        value: heatParaDataInfo?.tCurr
+      }, {
+        name: '工艺炉温', // Tf_Para
+        value: heatParaDataInfo?.tfPara
+      }, {
+        name: '计算炉温', // TO_Cal
+        value: heatParaDataInfo?.t0Cal
+      }, {
+        name: '表面', // T1_Surface
+        value: heatParaDataInfo?.t1Surface
+      }, {
+        name: '0.707处温度', // T2_W707
+        value: heatParaDataInfo?.t2W707
+      }, {
+        name: '中心温度', // T3_Center
+        value: heatParaDataInfo?.t3Center
+      }, {
+        name: '炉膛-表面', // Delta_Tf_T1
+        value: heatParaDataInfo?.deltaTfT1
+      }, {
+        name: '表面-重心', // Delta_T1_T2
+        value: heatParaDataInfo?.deltaT1T2
+      }, {
+        name: '表面-中心', // Delta_T1_T3
+        value: heatParaDataInfo?.deltaT1T3
+      }, {
+        name: '重心-中心', // Delta_T2_T3
+        value: heatParaDataInfo?.deltaT2T3
+      }]
+      return list
     }
   },
   methods: {

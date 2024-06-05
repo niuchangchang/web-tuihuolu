@@ -18,6 +18,7 @@ export default {
   methods: {
     handleSelect(item) {
       this.selectedIndex = item
+      this.$emit('changeSelect', this.selectedIndex)
     }
   }
 }

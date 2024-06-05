@@ -1,6 +1,7 @@
 <template>
   <div class="app-box">
-    <SelectComponent></SelectComponent>
+    <!-- toDo 公共部分须提到上一层 -->
+    <SelectComponent @changeSelect="handleSelectChange"></SelectComponent>
     <div class="content-box">
       <ParamBoxComponent :currFurnaceParaList="currFurnaceParaList"></ParamBoxComponent>
       <DataBoxComponent :currFurnaceParaInfo="currFurnaceParaInfo"></DataBoxComponent>
@@ -37,6 +38,11 @@ export default {
   data() {
     return {
       data: {}
+    }
+  },
+  methods: {
+    handleSelectChange(e) {
+      this.$emit('changeSelect', e)
     }
   }
 }

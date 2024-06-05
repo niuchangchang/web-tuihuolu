@@ -12,7 +12,7 @@ service.interceptors.request.use(
     // do something before request is sent
     // config.headers.Authorization = token
     config.headers = {
-      'content-type':'application/x-www-form-urlencoded'
+      'content-type':'application/json'
     }
     return config
   },

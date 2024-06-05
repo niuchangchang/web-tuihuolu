@@ -43,10 +43,6 @@ export default {
       () => props.showDataZoom,
       () => initChart()
     );
-    // watch(
-    //   () => props.heatParaDataList,
-    //   () => initChart()
-    // );
     const initChart = function () {
       myChart.setOption({
         color: ['#5B8FF9', '#5AD8A6', '#5D7092', '#F6BD16', '#E8684A', '#6DC8EC'],
@@ -100,7 +96,6 @@ export default {
           axisLine: {
             show: false,
           },
-          // data: props.chartData[0]
         },
         yAxis: [{
           type: 'value',
@@ -123,9 +118,6 @@ export default {
           return {
             type: 'line',
             symbol: 'none',
-            // itemStyle: {
-            //   color: '#E1D019',
-            // },
             ...item
           }
         })
@@ -135,9 +127,12 @@ export default {
         var pointInPixel= [params.offsetX, params.offsetY];
         if (myChart.containPixel('grid',pointInPixel)) {
           var xIndex=myChart.convertFromPixel({seriesIndex:0},[params.offsetX, params.offsetY])[0];
-          console.log(`=====点击里第${xIndex}个，值为`, props.heatParaDataList[xIndex])
+          // console.log(`=====点击里第${xIndex}个，值为`, props.heatParaDataList[xIndex])
           const clickItem = props.heatParaDataList[xIndex]
-          emit('line-click', clickItem.paraId)
+          emit('lineClick', {
+            paraId: clickItem.paraId,
+            dataNo: clickItem.dataNo
+          })
         }
       });
 

@@ -11,9 +11,9 @@
       <div class="name">{{ title }}</div>
       <div class="header-right">
         <div class="date">
-          <span>17:52:00</span>
-          <span>2023-12-09</span>
-          <span>星期四</span>
+          <span>{{ timeValue }}</span>
+          <span>{{ dateValue }}</span>
+          <span>{{ weekValue }}</span>
         </div>
         <div></div>
       </div>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue'
+import { defineProps, defineEmits, ref, onMounted } from 'vue'
 
 defineProps({
   title: {
@@ -33,8 +33,29 @@ defineProps({
 
 const emit = defineEmits(['tabChange'])
 
-const selectedIndex = ref(1);
+onMounted(() => {
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
+})
 
+const dateValue = ref('')
+const timeValue = ref('')
+const weekValue = ref('')
+const updateDateTime = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  const daysOfWeek = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+  dateValue.value = `${year}-${month}-${day}`
+  timeValue.value = `${hours}:${minutes}:${seconds}`
+  weekValue.value = daysOfWeek[now.getDay()];
+}
+
+const selectedIndex = ref(1);
 const handleSelect = (index) => {
   selectedIndex.value = index
   emit("tabChange", selectedIndex.value)

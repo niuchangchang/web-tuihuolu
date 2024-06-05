@@ -6,9 +6,12 @@
       <img src="@/assets/heat_title_right.png" alt="">
     </div>    
     <div class="heat-content">
-      <div class="heat-chart"></div>
+      <div class="heat-chart">
+        {{ temp }}℃
+        <!-- <HeatChartComponent></HeatChartComponent> -->
+      </div>
       <div class="heat-list">
-        <div class="heat-list-title">test</div>
+        <!-- <div class="heat-list-title">test</div> -->
         <div v-for="(item, index) in list" :key="index" :class="['heat-list-item', {'heat-list-item-selected': item.status === 1}]">
           <span>{{ `${item.name}` }}</span>
         </div>
@@ -17,10 +20,16 @@
   </div>
 </template>
 <script>
+// import HeatChartComponent from '@/views/dashboard/components/charts/HeatChartComponent.vue'
+
 export default {
   name: 'HeatBoxComponent',
+  components: {
+    // HeatChartComponent
+  },
   data() {
     return {
+      temp: 100,
       list: [{
         name: '工艺炉温',
         status: 1

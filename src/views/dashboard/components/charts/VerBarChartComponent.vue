@@ -1,5 +1,5 @@
 <template>
-  <div ref="verBarChart" id="verBarChart" class="charts-container" />
+  <div id="verBarChart" class="charts-container" />
 </template>
 
 <script>
@@ -33,7 +33,7 @@ export default {
       myChart.setOption({
         grid: {
           left: 0,
-          right: 20,
+          right: 42,
           bottom: 0,
           top: 0,
           containLabel: true
@@ -115,7 +115,7 @@ export default {
 </script>
 <style lang="scss" scoped>
   .charts-container {
-    width: 460px;
+    width: 100%;
     height: 100%;
   }
 </style>

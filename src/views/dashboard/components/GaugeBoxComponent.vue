@@ -1,6 +1,7 @@
 <template>
   <div class="gauge-container">
-    <div class="gauge-chart" :style="{width: `${width}px`, height: `${height}px`}">
+    <div class="gauge-chart">
+      <!-- <GaugeChartComponent></GaugeChartComponent> -->
     </div>
     <div class="gauge-content">
       <div class="value-box">
@@ -13,8 +14,13 @@
 </template>
 
 <script>
+// import GaugeChartComponent from '@/views/dashboard/components/charts/GaugeChartComponent.vue'
+
 export default {
   name: 'GaugeBoxComponent',
+  components: {
+    // GaugeChartComponent,
+  },
   props: {
     title: {
       type: String,
@@ -28,14 +34,6 @@ export default {
       type: String,
       default: 'h'
     },
-    width: {
-      type: Number,
-      default: 120
-    },
-    height: {
-      type: Number,
-      default: 110
-    }
   },
   data() {
     return {
@@ -54,6 +52,8 @@ export default {
     gap: 20px;
   }
   &-chart {
+    width: 104px;
+    height: 95px;
     background: url(@/assets/gauge_icon.png) 100% 100% no-repeat;
     background-size: 100% 100%;
   }

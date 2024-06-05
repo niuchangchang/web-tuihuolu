@@ -1,5 +1,5 @@
 <template>
-  <div ref="barChart" id="barChart" class="charts-container" />
+  <div id="barChart" class="charts-container" />
 </template>
 
 <script>

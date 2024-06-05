@@ -1,6 +1,6 @@
 <template>
   <div class="param-container">
-    <div class="param-title">TB_Curr_Furnace_Para</div>
+    <div class="param-title">当前炉次的设定工艺参数</div>
     <div class="param-list">
       <div class="param-list-row param-list-title">
         <span>参数名称</span>
@@ -35,49 +35,49 @@ export default {
       const { currFurnaceParaList } = this
       const list = currFurnaceParaList.map(item => {
         return [{
-          name: 'Data_ID',
+          name: '记录号', // Data_ID
           value: item.dataId
         }, {
-          name: 'Furnace_ID',
+          name: '退火炉炉次', // Furnace_ID
           value: item.furnaceId
         }, {
-          name: 'Furnace_No',
+          name: '退火炉编号', // Furnace_No
           value: item.furnaceNo
         }, {
-          name: 'Furnace_Name',
+          name: '退火炉名称', // Furnace_Name
           value: item.furnaceName
         }, {
-          name: 'Para_Num',
+          name: '曲线号', // Para_Num
           value: item.paraNum
         }, {
-          name: 'Common_T',
+          name: '常温', // Common_T
           value: item.commonT
         }, {
-          name: 'Seg_NO',
+          name: '分段号', // Seg_NO
           value: item.segNo
         }, {
-          name: 'RT_TIMEa',
+          name: '运行升温时间', // RT_TIMEa
           value: item.rtTimea
         }, {
-          name: 'RT_TIMEb',
+          name: '运行保温时间', // RT_TIMEb
           value: item.rtTimeb
         }, {
-          name: 'SP_TEMP',
+          name: '设定温度', // SP_TEMP
           value: item.spTemp
         }, {
-          name: 'SP_TIMEa',
+          name: '设定升温时间', // SP_TIMEa
           value: item.spTimea
         }, {
-          name: 'SP_TIMEb',
+          name: '设定保温时间', // SP_TIMEb
           value: item.spTimeb
         }, {
-          name: 'SP_SteelType',
+          name: '设定钢种', // SP_SteelType
           value: item.spSteeltype
         }, {
-          name: 'SP_MODEL',
+          name: '设定锭型', // SP_MODEL
           value: item.spModel
         }, {
-          name: 'Data_Datetime',
+          name: '记录更新时间', // Data_Datetime
           value: item.dataDatetime
         }]
       })
@@ -94,6 +94,7 @@ export default {
     width: 568px;
     display: flex;
     flex-direction: column;
+    gap: 15px;
   }
   &-title {
     display: flex;
