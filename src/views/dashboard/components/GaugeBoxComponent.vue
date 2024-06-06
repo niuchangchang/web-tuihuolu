@@ -1,7 +1,7 @@
 <template>
   <div class="gauge-container">
     <div class="gauge-chart">
-      <!-- <GaugeChartComponent></GaugeChartComponent> -->
+      <GaugeChartComponent :index="index" :chartData="value"></GaugeChartComponent>
     </div>
     <div class="gauge-content">
       <div class="value-box">
@@ -14,14 +14,18 @@
 </template>
 
 <script>
-// import GaugeChartComponent from '@/views/dashboard/components/charts/GaugeChartComponent.vue'
+import GaugeChartComponent from '@/views/dashboard/components/charts/GaugeChartComponent.vue'
 
 export default {
   name: 'GaugeBoxComponent',
   components: {
-    // GaugeChartComponent,
+    GaugeChartComponent,
   },
   props: {
+    index: {
+      type: Number,
+      default: 0
+    },
     title: {
       type: String,
       default: ''
@@ -52,10 +56,10 @@ export default {
     gap: 20px;
   }
   &-chart {
-    width: 104px;
-    height: 95px;
-    background: url(@/assets/gauge_icon.png) 100% 100% no-repeat;
-    background-size: 100% 100%;
+    width: 105px;
+    height: 105px;
+    // background: url(@/assets/gauge_icon.png) 100% 100% no-repeat;
+    // background-size: 100% 100%;
   }
   &-content {
     display: flex;

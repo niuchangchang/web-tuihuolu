@@ -9,7 +9,7 @@
     </div>
     <div class="data-chart">
       <div class="gauge-box">
-        <GaugeBoxComponent v-for="(item, index) in gaugeData" :key="index" :title="item.name" :value="item.value"></GaugeBoxComponent>
+        <GaugeBoxComponent v-for="(item, index) in gaugeData" :key="index" :index="index" :title="item.name" :value="item.value"></GaugeBoxComponent>
       </div>
       <div class="bar-box">
         <div class="bar-title">Furnace_T_Inner</div>
@@ -209,7 +209,6 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 16px;
     }
     .bar-box {
       flex: 1;

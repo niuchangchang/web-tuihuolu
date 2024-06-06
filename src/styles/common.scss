@@ -88,3 +88,111 @@ img {
   border: 1px solid #7299BF;
   box-shadow: none;
 }
+
+// element plus css
+.el-input__wrapper,
+.el-input__wrapper.is-focus,
+.el-input__wrapper:hover,
+.el-popper.is-light,
+.el-select .el-input.is-focus .el-input__wrapper,
+.el-select .el-input:hover .el-input__wrapper {
+  background: rgba(14, 45, 96, 0.9) !important;
+  box-shadow: none !important;
+  border: 1px solid #00DEC6 !important;
+}
+
+// .el-date-editor.el-input,
+// .el-select .el-input {
+//   width: 120px;
+//   height: 1.2rem;
+//   line-height: 1.2rem;
+// }
+
+// .el-date-editor.el-input,
+// .el-input__inner {
+//   height: 1.2rem !important;
+//   line-height: 1.2rem;
+// }
+
+// .el-range-editor.el-input__wrapper {
+//   max-width: 260px;
+// }
+
+.el-input__inner,
+.el-input__inner:hover
+.el-input__inner:focus {
+  box-shadow: none !important;
+  background: rgba(14, 45, 96, 0.9);
+  border: 1px solid #00DEC6 !important;
+}
+
+.el-input__prefix,
+.el-range-separator,
+.el-range-input,
+.el-input__inner, 
+.el-date-picker__header-label, 
+.el-date-table th, 
+.el-month-table td .cell, 
+.el-year-table td .cell, 
+.el-select-dropdown__item,
+.el-picker-panel__icon-btn {
+  color: $fontColor !important;
+}
+
+.el-picker-panel,
+.el-date-table td.disabled .el-date-table-cell,
+.el-year-table td.disabled .cell,
+.el-month-table td.disabled .cell {
+  background-color: rgba(14, 45, 96, 0.9);
+  color: $fontColor;
+}
+
+.el-date-table td.disabled .el-date-table-cell {
+  color: $colorA1B2CF !important;
+}
+
+.el-month-table td.end-date div,
+.el-month-table td.start-date div {
+  background: rgba(14, 45, 96, 0.9);
+}
+
+.el-month-table td.in-range div,
+.el-month-table td.in-range div:hover,
+.el-date-table td.in-range .el-date-table-cell,
+.el-date-table.is-week-mode .el-date-table__row.current .el-date-table-cell,
+.el-date-table td .el-date-table-cell:hover {
+  background-color: rgba(59, 255, 179, 0.2) !important;
+  color: #00DEC6 !important;
+}
+
+.el-date-table.is-week-mode .el-date-table__row:hover .el-date-table-cell {
+  background-color: rgba(59, 255, 179, 0.2) !important;
+}
+
+.el-date-range-picker__content.is-left {
+  border-right: 1px solid #00DEC6;
+}
+
+.el-popper.is-light .el-popper__arrow::before {
+  border: 1px solid #00DEC6 !important;
+  background: rgba(14, 45, 96, 0.9);
+  border-bottom-color: rgba(14, 45, 96, 0.9) !important;
+  border-right-color: rgba(14, 45, 96, 0.9) !important;
+}
+
+.el-month-table td.end-date .cell, 
+.el-month-table td.start-date .cell,
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover,
+.el-month-table td.current:not(.disabled) .cell,
+.el-month-table td .cell:hover,
+.el-select-dropdown__item.selected,
+.el-date-table td.end-date .el-date-table-cell__text,
+.el-date-table td.start-date .el-date-table-cell__text,
+.el-date-table td.today .el-date-table-cell__text {
+  background-color: transparent !important;
+  color: #00DEC6 !important;
+}
+
+.el-select-dropdown__item {
+  font-size: 13px !important;
+}

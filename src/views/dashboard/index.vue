@@ -2,8 +2,8 @@
   <VScaleScreen width="1920" height="1080">
     <div class="app-container">
       <HeaderComponent title="退火炉监控应用平台" @tabChange="handleTabChange" />
-      <ContentComponent v-if="tabIndex === 1" :currFurnaceParaList="currFurnaceParaList" :currFurnaceParaInfo="currFurnaceParaInfo" @changeSelect="handleSelectChange" />
-      <ChartComponent v-else :heatParaDataList="heatParaDataList" :heatParaDataInfo="heatParaDataInfo" @lineClick="handleClickLine" />
+      <ContentComponent v-if="tabIndex === 1" :selectedIndex="furnaceNo" @update:selectedIndex="updateSelectedIndex" :currFurnaceParaList="currFurnaceParaList" :currFurnaceParaInfo="currFurnaceParaInfo" />
+      <ChartComponent v-else :heatParaDataList="heatParaDataList" :heatParaDataInfo="heatParaDataInfo" :heatSectionData="heatSectionData" @searchChange="handleSearchChange" @lineClick="handleClickLine" />
     </div>
   </VScaleScreen>
 </template>
@@ -25,14 +25,16 @@ export default {
   },
   data() {
     return {
-      tabIndex: 2,
+      tabIndex: 1,
       furnaceNo: 1,
       currFurnaceParaList: [],
       currFurnaceParaInfo: {},
       heatParaDataList: [],
       heatParaDataInfo: {},
+      heatSectionData: [],
       paraId: null,
       dataNo: null,
+      searchParams: null
     }
   },
   computed: {
@@ -42,6 +44,7 @@ export default {
       immediate: true,
       deep: true,
       handler(val) {
+        // console.log('===点击tab', val, this.furnaceNo)
         this.handleTabIndexChange(val)
       }
     },
@@ -49,8 +52,19 @@ export default {
       immediate: true,
       deep: true,
       handler() {
+        // console.log('===点击tab', this.tabIndex, this.furnaceNo)
         this.getCurrFurnaceParaFun();
         this.getCurrFurnaceParaInfoFun();
+      }
+    },
+    searchParams: {
+      immediate: true,
+      deep: true,
+      handler(val) {
+        if(val) {
+          // console.log('===searchParams val', val)
+          this.getHeatParaDataFun();
+        }
       }
     }
   },
@@ -61,6 +75,7 @@ export default {
       this.tabIndex = e
     },
     async handleTabIndexChange(val) {
+      this.searchParams = null
       switch(val) {
         case 1: 
           await this.getCurrFurnaceParaFun();
@@ -71,8 +86,8 @@ export default {
           break;
       }
     },
-    handleSelectChange(e) {
-      this.furnaceNo = e
+    updateSelectedIndex(newIndex) {
+      this.furnaceNo = newIndex
     },
     // 获取参数列表
     async getCurrFurnaceParaFun() {
@@ -88,17 +103,23 @@ export default {
     },
     // 获取折线图数据
     async getHeatParaDataFun() {
+      this.heatParaDataInfo = {}
+      this.heatSectionData = []
       getHeatParaData({
-        furnaceNo: this.furnaceNo,
-        // date: 
+        furnaceNo: this.searchParams?.furnaceNo || this.furnaceNo,
+        date: this.searchParams?.date
       }).then(res => {
         this.heatParaDataList = res.rows
         // 默认显示第一个
-        this.paraId = this.heatParaDataList[this.heatParaDataList.length - 1].paraId
-        this.dataNo = this.heatParaDataList[this.heatParaDataList.length - 1].dataNo
-        this.getHeatParaDataInfoFun()
-        this.getHeatSectionDataFun()
+        this.paraId = this.heatParaDataList[this.heatParaDataList.length - 1]?.paraId
+        this.dataNo = this.heatParaDataList[this.heatParaDataList.length - 1]?.dataNo
+        this.getDataInfoFun()
       })
+    },
+    async getDataInfoFun() {
+      
+      if(this.furnaceNo && this.dataNo) await this.getHeatParaDataInfoFun()
+      if(this.paraId) await this.getHeatSectionDataFun()
     },
     // 联动折线图 获取详情数据
     async getHeatParaDataInfoFun() {
@@ -109,17 +130,17 @@ export default {
     // 获取热力图数据
     async getHeatSectionDataFun() {
       getHeatSectionData(this.paraId).then(res => {
-        console.log('----rows', res.rows)
-        // this.heatParaDataInfo = res.rows
+        this.heatSectionData = res.rows
       })
     },
-    async handleClickLine(e) {
-      // console.log('===paraId', e)
+    handleClickLine(e) {
       this.paraId = e.paraId
       this.dataNo = e.dataNo
-      // 防抖
-      await this.getHeatParaDataInfoFun()
-      // await this.getHeatSectionDataFun()
+      // toDo 防抖
+      this.getDataInfoFun()
+    },
+    handleSearchChange(e) {
+      this.searchParams = e
     }
   }
 }

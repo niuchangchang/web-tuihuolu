@@ -9,16 +9,22 @@
 <script>
 export default {
   name: 'SelectComponent',
+  props: {
+    selectedIndex: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
       selectNum: 10,
-      selectedIndex: 1
     }
+  },
+  computed: {
   },
   methods: {
     handleSelect(item) {
-      this.selectedIndex = item
-      this.$emit('changeSelect', this.selectedIndex)
+      this.$emit('update:selectedIndex', item);
     }
   }
 }

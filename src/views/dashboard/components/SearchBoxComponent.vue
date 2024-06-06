@@ -1,16 +1,11 @@
 <template>
   <div class="search-container">
+    <!-- 这个搜索控制的竟是折线图 -->
     <div class="search-box">
       <div class="search-item">
         <span>退火炉编号</span>
-        <!-- <el-input v-model="furnaceNo" placeholder=""></el-input> -->
-        <el-select v-model="furnaceNo" placeholder="">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
+        <el-select v-model="furnaceNo" placeholder="" clearable>
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </div>
       <!-- <div class="search-item">
@@ -19,10 +14,10 @@
       </div> -->
       <div class="search-item">
         <span>日期</span>
-        <el-input v-model="date" placeholder=""></el-input>
+        <el-date-picker v-model="date" type="date" :disabled-date="disabledDate" value-format="YYYY-MM-DD" placeholder="请选择"></el-date-picker>
       </div>
       <!-- <div class="search-item"> -->
-        <el-button type="primary" size="small" icon="el-icon-search" class="search-item-button">查询</el-button>
+        <el-button type="primary" size="small" icon="el-icon-search" class="search-item-button" @click="handleSearch">查询</el-button>
       <!-- </div> -->
     </div>
     <div class="search-list">
@@ -57,28 +52,28 @@ export default {
       const { heatParaDataInfo } = this
       const list = [{
         name: '记录号', // Para_ID
-        value: heatParaDataInfo.paraId
+        value: heatParaDataInfo?.paraId
       }, {
         name: '退火炉炉次', // Furnace_ID
-        value: heatParaDataInfo.furnaceId
+        value: heatParaDataInfo?.furnaceId
       }, {
         name: '退火炉编号', // Furnace_No
-        value: heatParaDataInfo.furnaceNo
+        value: heatParaDataInfo?.furnaceNo
       }, {
         name: '曲线号', // Para_Num
-        value: heatParaDataInfo.paraNum
+        value: heatParaDataInfo?.paraNum
       }, {
         name: 'Steel_Grade', // Steel_Grade
-        value: heatParaDataInfo.steelGrade
+        value: heatParaDataInfo?.steelGrade
       }, {
         name: '数据点序号', // Date_NO
-        value: heatParaDataInfo.dataNo
+        value: heatParaDataInfo?.dataNo
       }, {
         name: '记录时间', // Split_Time
-        value: heatParaDataInfo.splitTime
+        value: heatParaDataInfo?.splitTime
       }, {
         name: '记录更新时间', // Data_Datetime
-        value: heatParaDataInfo.dataDatetime
+        value: heatParaDataInfo?.dataDatetime
       }]
       return list
     }
@@ -93,6 +88,15 @@ export default {
     }
   },
   methods: {
+    disabledDate(date) {
+      return date.getTime() > new Date().getTime()
+    },
+    handleSearch() {
+      this.$emit('searchChange', {
+        furnaceNo: this.furnaceNo,
+        date: this.date,
+      })
+    }
   }
 }
 </script>
@@ -102,7 +106,7 @@ export default {
     width: 520px;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
     padding: 30px 18px;
     background: url(@/assets/card_small_bg.png) 100% 100% no-repeat;
     background-size: 100% 100%;
@@ -113,13 +117,12 @@ export default {
     flex-wrap: wrap;
     column-gap: 15px;
     row-gap: 8px;
-    padding: 0 12px;
   }
   &-item {
-    width: 178px;
+    width: 190px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     font-size: 14px;
     span {
       // width: 80px;
@@ -145,6 +148,7 @@ export default {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    border: 1px solid #455EBD;
     &-row {
       display: flex;
       height: 32px;
@@ -153,6 +157,9 @@ export default {
       span {
         flex: 1;
         text-align: center;
+        &:nth-child(1) {
+          border-right: 1px solid #4260C0;
+        }
       }
       &:nth-child(odd) {
         background: url(@/assets/param_item_bg.png) 100% 100% no-repeat;

@@ -7,51 +7,64 @@
     </div>    
     <div class="heat-content">
       <div class="heat-chart">
-        {{ temp }}℃
-        <!-- <HeatChartComponent></HeatChartComponent> -->
+        <div class="current-temp">当前温度：{{ temp || '-' }}℃</div>
+        <HeatChartComponent :chartData="chartData" @heatClick="handleClickHeat"></HeatChartComponent>
       </div>
       <div class="heat-list">
-        <!-- <div class="heat-list-title">test</div> -->
-        <div v-for="(item, index) in list" :key="index" :class="['heat-list-item', {'heat-list-item-selected': item.status === 1}]">
-          <span>{{ `${item.name}` }}</span>
+        <!-- <div v-for="(item, index) in list" :key="index" :class="['heat-list-item', {'heat-list-item-selected': selectIndexList.includes(item)}]" @click="handleClickType(item)"> -->
+        <div v-for="(item, index) in list" :key="index" :class="['heat-list-item']">
+          <span>{{ `${item}` }}</span>
         </div>
       </div>
     </div>  
   </div>
 </template>
 <script>
-// import HeatChartComponent from '@/views/dashboard/components/charts/HeatChartComponent.vue'
+import HeatChartComponent from '@/views/dashboard/components/charts/HeatChartComponent.vue'
 
 export default {
   name: 'HeatBoxComponent',
   components: {
-    // HeatChartComponent
+    HeatChartComponent
+  },
+  props: {
+    heatSectionData: {
+      type: Array,
+      default: () => {
+        return []
+      } 
+    },
   },
   data() {
     return {
-      temp: 100,
-      list: [{
-        name: '工艺炉温',
-        status: 1
-      }, {
-        name: '计算炉温',
-        status: 1
-      }, {
-        name: '表面温度',
-        status: 1
-      }, {
-        name: '重心温度',
-        status: 1
-      }, {
-        name: '中心温度',
-        status: 0
-      }, {
-        name: '生产炉温',
-        status: 0
-      }]
+      temp: null,
+      list: ['工艺炉温', '计算炉温', '表面温度', '重心温度', '中心温度', '生产炉温'],
+      selectIndexList: []
+    }
+  },
+  computed: {
+    chartData() {
+      const { heatSectionData } = this
+      // const list = heatSectionData
+      //     .map(function (item) {
+      //     return [Number(item[1]), Number(item[0]), Number(item[2]) || '-'];
+      // });
+      const list = heatSectionData
+      return list
     }
   },
   methods: {
+    // handleClickType(name) {
+    //   const findIndex = this.selectIndexList.findIndex(item => item === name)
+    //   if(findIndex !== -1) {
+    //     this.selectIndexList.splice(findIndex, 1)
+    //   } else {
+    //     this.selectIndexList.push(name)
+    //   }
+    // },
+    handleClickHeat(e) {
+      this.temp = e
+    }
   }
 }
 </script>
@@ -81,9 +94,29 @@ export default {
     flex: 1;
     display: flex;
     gap: 35px;
+    padding-top: 20px;
   }
   &-chart {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .current-temp {
+      position: relative;
+      padding-left: 24px;
+      font-size: 16px;
+      color: #1C61F8;
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        width: 24px;
+        height: 24px;
+        background: url(@/assets/temp_icon.png) 100% 100% no-repeat;
+        background-size: 100% 100%;
+      }
+    }
   }
   &-list {
     display: flex;
@@ -104,7 +137,9 @@ export default {
       background: url(@/assets/heat_card_bg.png) 100% 100% no-repeat;
       background-size: 100% 100%;
       font-size: 14px;
-      color: #436AC8;
+      // color: #436AC8;
+      color: #77F7FF;
+      cursor: pointer;
       &-selected {
         color: #77F7FF;
         &::before {

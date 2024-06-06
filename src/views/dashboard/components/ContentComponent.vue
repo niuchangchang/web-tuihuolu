@@ -1,7 +1,7 @@
 <template>
   <div class="app-box">
     <!-- toDo 公共部分须提到上一层 -->
-    <SelectComponent @changeSelect="handleSelectChange"></SelectComponent>
+    <SelectComponent :selectedIndex="selectedIndex" @update:selectedIndex="updateSelectedIndex"></SelectComponent>
     <div class="content-box">
       <ParamBoxComponent :currFurnaceParaList="currFurnaceParaList"></ParamBoxComponent>
       <DataBoxComponent :currFurnaceParaInfo="currFurnaceParaInfo"></DataBoxComponent>
@@ -22,6 +22,10 @@ export default {
     DataBoxComponent
   },
   props: {
+    selectedIndex: {
+      type: Number,
+      required: true
+    },
     currFurnaceParaList: {
       type: Array,
       default: () => {
@@ -37,12 +41,15 @@ export default {
   },
   data() {
     return {
-      data: {}
+      data: {
+      }
     }
   },
+  computed: {
+  },
   methods: {
-    handleSelectChange(e) {
-      this.$emit('changeSelect', e)
+    updateSelectedIndex(newIndex) {
+      this.$emit('update:selectedIndex', newIndex);
     }
   }
 }

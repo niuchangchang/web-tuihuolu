@@ -1,8 +1,8 @@
 <template>
   <div class="app-box">
     <div class="top-box">
-      <HeatBoxComponent></HeatBoxComponent>
-      <SearchBoxComponent :heatParaDataInfo="heatParaDataInfo"></SearchBoxComponent>
+      <HeatBoxComponent :heatSectionData="heatSectionData"></HeatBoxComponent>
+      <SearchBoxComponent :heatParaDataInfo="heatParaDataInfo" @searchChange="handleSearchChange"></SearchBoxComponent>
       <ChartBoxComponent :heatParaDataInfo="heatParaDataInfo"></ChartBoxComponent>
     </div>
     <div class="bottom-box">
@@ -48,6 +48,12 @@ export default {
         return {}
       } 
     },
+    heatSectionData: {
+      type: Array,
+      default: () => {
+        return []
+      } 
+    },
   },
   data() {
     return {
@@ -83,6 +89,9 @@ export default {
   methods: {
     handleClickLine(e) {
       this.$emit('lineClick', e)
+    },
+    handleSearchChange(e) {
+      this.$emit('searchChange', e)
     }
   }
 }

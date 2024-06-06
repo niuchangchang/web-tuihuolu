@@ -4,7 +4,7 @@
       <VerBarChartComponent :barChartData="barData"></VerBarChartComponent>
     </div>
     <div class="gauge-box">
-      <GaugeBoxComponent v-for="(item, index) in gaugeData" :key="index" :title="item.name" :value="item.value"></GaugeBoxComponent>
+      <GaugeBoxComponent v-for="(item, index) in gaugeData" :key="index" :index="index" :title="item.name" :value="item.value"></GaugeBoxComponent>
     </div>
   </div>
 </template>
