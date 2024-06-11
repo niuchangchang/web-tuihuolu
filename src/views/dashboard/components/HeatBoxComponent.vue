@@ -7,14 +7,14 @@
     </div>    
     <div class="heat-content">
       <div class="heat-chart">
-        <div class="current-temp">当前温度：{{ temp || '-' }}℃</div>
+        <!-- <div class="current-temp">当前温度：{{ temp || '-' }}℃</div> -->
         <HeatChartComponent :chartData="chartData" @heatClick="handleClickHeat"></HeatChartComponent>
       </div>
       <div class="heat-list">
         <!-- <div v-for="(item, index) in list" :key="index" :class="['heat-list-item', {'heat-list-item-selected': selectIndexList.includes(item)}]" @click="handleClickType(item)"> -->
-        <div v-for="(item, index) in list" :key="index" :class="['heat-list-item']">
+        <!-- <div v-for="(item, index) in list" :key="index" :class="['heat-list-item']">
           <span>{{ `${item}` }}</span>
-        </div>
+        </div> -->
       </div>
     </div>  
   </div>

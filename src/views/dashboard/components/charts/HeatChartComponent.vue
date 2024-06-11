@@ -35,7 +35,7 @@ export default {
         color: 'rgba(91,143,249,0.85)',
         grid: {
           left: 80,
-          right: 0,
+          right: 30,
           bottom: 10,
           top: 20,
           containLabel: true
