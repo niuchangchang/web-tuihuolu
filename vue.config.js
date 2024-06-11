@@ -10,13 +10,13 @@ module.exports = defineConfig({
   devServer: {
     port: port,
     open: false,
-    proxy: {
-      '/backend/': {
-        target: 'http://101.34.15.44:8011',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite: { '^/backend': '' }
-      }
-    }
+    // proxy: {
+    //   '/backend/': {
+    //     target: 'http://101.34.15.44:8011',
+    //     ws: true,
+    //     changeOrigin: true,
+    //     pathRewrite: { '^/backend': '' }
+    //   }
+    // }
   },
 })
