@@ -2,7 +2,8 @@ import axios from 'axios'
 import { ElMessage } from 'element-plus'
 
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
+  // baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: 'http://101.34.15.44:8011',
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
