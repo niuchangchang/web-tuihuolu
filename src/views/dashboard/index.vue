@@ -117,7 +117,6 @@ export default {
       })
     },
     async getDataInfoFun() {
-      
       if(this.furnaceNo && this.dataNo) await this.getHeatParaDataInfoFun()
       if(this.paraId) await this.getHeatSectionDataFun()
     },
@@ -136,7 +135,6 @@ export default {
     handleClickLine(e) {
       this.paraId = e.paraId
       this.dataNo = e.dataNo
-      // toDo 防抖
       this.getDataInfoFun()
     },
     handleSearchChange(e) {

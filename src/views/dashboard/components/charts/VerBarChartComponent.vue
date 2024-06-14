@@ -75,7 +75,7 @@ export default {
             show: false
           },
           axisLabel: {
-            color: '#1786EF',
+            color: '#FFFFFF',
           }
         },
         series: [{

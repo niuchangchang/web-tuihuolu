@@ -5,6 +5,7 @@
 <script>
 import * as echarts from 'echarts';
 import { onMounted, onUnmounted, watch } from 'vue'
+import _ from 'lodash';
 
 export default {
   name: 'LineChartComponent',
@@ -83,7 +84,8 @@ export default {
           icon: 'rect'
         },
         dataZoom: {
-          show: props.showDataZoom
+          show: props.showDataZoom,
+          type: 'inside'
         },
         xAxis: {
           type: 'category',
@@ -123,23 +125,29 @@ export default {
         })
       })
 
-      myChart.getZr().on('click',function (params){
+      myChart.getZr().on('click', function (params){
+        params.event.stopPropagation(); 
         var pointInPixel= [params.offsetX, params.offsetY];
         if (myChart.containPixel('grid',pointInPixel)) {
           var xIndex=myChart.convertFromPixel({seriesIndex:0},[params.offsetX, params.offsetY])[0];
           // console.log(`=====点击里第${xIndex}个，值为`, props.heatParaDataList[xIndex])
           const clickItem = props.heatParaDataList[xIndex]
-          emit('lineClick', {
-            paraId: clickItem.paraId,
-            dataNo: clickItem.dataNo
-          })
+          debounceEmit(clickItem, emit);
         }
       });
 
       myChart.resize()
     }
+
+    const debounceEmit = _.debounce((clickItem, emit) => {
+      emit('lineClick', {
+        paraId: clickItem.paraId,
+        dataNo: clickItem.dataNo
+      });
+    }, 300);
     return {
-      initChart
+      initChart,
+      debounceEmit
     }
   }
 }

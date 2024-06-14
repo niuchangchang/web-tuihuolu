@@ -15,7 +15,8 @@
           <span>{{ dateValue }}</span>
           <span>{{ weekValue }}</span>
         </div>
-        <div></div>
+        <div class="divide"></div>
+        <div class="logo2"></div>
       </div>
     </div>
   </div>
@@ -136,11 +137,25 @@ const handleSelect = (index) => {
     right: 40px;
     display: flex;
     align-items: center;
+    gap: 38px;
+    padding-right: 40px;
     .date {
       display: flex;
       align-items: center;
       gap: 20px;
       font-size: 20px;
+    }
+    .divide {
+      width: 2px;
+      height: 20px;
+      background: #FFFFFF;
+      opacity: 0.5;
+    }
+    .logo2 {
+      width: 20px;
+      height: 27px;
+      background: url(@/assets/logo2.png) 100% 100% no-repeat;
+      background-size: 100% 100%;
     }
   }
 }
