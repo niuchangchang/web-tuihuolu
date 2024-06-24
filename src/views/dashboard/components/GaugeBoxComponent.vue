@@ -67,6 +67,7 @@ export default {
     gap: 10px;
     font-size: 16px;
     .value-box {
+      white-space: nowrap;
       font-weight: bold;
       .value {
         font-size: 30px;
