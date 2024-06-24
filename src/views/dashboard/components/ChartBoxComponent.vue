@@ -57,7 +57,7 @@ export default {
         name: '计算炉温', // TO_Cal
         value: heatParaDataInfo?.t0Cal
       }, {
-        name: '表面', // T1_Surface
+        name: '表面温度', // T1_Surface
         value: heatParaDataInfo?.t1Surface
       }, {
         name: '0.707处温度', // T2_W707
