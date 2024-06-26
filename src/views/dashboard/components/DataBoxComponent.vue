@@ -183,21 +183,25 @@ export default {
     display: flex;
     flex-wrap: wrap;
     row-gap: 16px;
-    column-gap: 24px;
+    column-gap: 18px;
     margin: 40px 0 30px;
     &-item {
-      width: 270px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 274px;
       height: 48px;
       padding: 10px;
-      font-size: 15px;
+      font-size: 16px;
+      font-weight: bold;
       line-height: 24px;
       color: #FFFAF9;
       background: url(@/assets/data_item_bg.png) 100% 100% no-repeat;
       background-size: 100% 100%;
-      .name {
-        font-weight: bold;
-        font-size: 16px;
-      }
+      // .name {
+      //   font-weight: bold;
+      //   font-size: 16px;
+      // }
     }
   }
   &-chart {

@@ -46,7 +46,8 @@ export default {
     );
     const initChart = function () {
       myChart.setOption({
-        color: ['#5B8FF9', '#5AD8A6', '#5D7092', '#F6BD16', '#E8684A', '#6DC8EC'],
+        color: ['#FF260F', '#0AFF27', '#FFF607', '#01C0FF', '#FF02ED', '#00F8FF'],
+        // color: ['#5B8FF9', '#5AD8A6', '#5D7092', '#F6BD16', '#E8684A', '#6DC8EC'],
         grid: {
           left: 20,
           right: 32,
@@ -64,12 +65,21 @@ export default {
           fontSize: 16,
           padding: [0],
           formatter: function(params) {
-            var str = `<div style="background:url( ${require("@/assets/line_tooltip_bg.png")}) no-repeat center center; background-size: 100% 100%; width: 148px; height: 185px; padding: 10px 12px 14px; display: flex; flex-direction: column; justify-content: space-between;">`;
+            
+            var str = `<div style="background:url( ${require("@/assets/line_tooltip_bg.png")}) no-repeat center center; background-size: 100% 100%; width: 200px; height: 220px; padding: 10px 12px 14px; display: flex; flex-direction: column; justify-content: space-between;">`;
             params.forEach(function (item) {
-              str += `<div> ${item.seriesName}:  ${item.value}</div>`;
+              str += `<div style="color:${item.color||''};font-size:20px;">${item.seriesName}:  ${item.value||'0'}</div>`;
             });
             str+='</div>'
             return str;
+          }
+        },
+        toolbox:{
+          feature:{
+            dataZoom:{
+              show:true,
+              
+            }
           }
         },
         legend: {
@@ -117,6 +127,7 @@ export default {
           }
         }],
         series: props.chartData.map(item => {
+          //console.log(item);
           return {
             type: 'line',
             symbol: 'none',

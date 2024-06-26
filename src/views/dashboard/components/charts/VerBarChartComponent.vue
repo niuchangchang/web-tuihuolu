@@ -33,7 +33,7 @@ export default {
       myChart.setOption({
         grid: {
           left: 0,
-          right: 42,
+          right: 60,
           bottom: 0,
           top: 0,
           containLabel: true
@@ -57,8 +57,10 @@ export default {
         },
         xAxis: {
           type: 'value',
+          max: 1200,
           axisLabel: {
             color: '#FFFFFF',
+            fontSize: 14,
             formatter: '{value}℃',
           },
           splitLine: {
@@ -76,12 +78,13 @@ export default {
           },
           axisLabel: {
             color: '#FFFFFF',
+            fontSize: 14,
           }
         },
         series: [{
           type: 'bar',
           data: props.barChartData.map(item => item.value),
-          barWidth: '16px',
+          barWidth: '14px',
           itemStyle: {
             color: {
               type: 'linear',
@@ -100,6 +103,7 @@ export default {
             show: true,
             position: 'right',
             formatter: '{c}℃',
+            fontSize: 14,
             color: '#10CBF1',
           }
         }]

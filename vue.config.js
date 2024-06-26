@@ -19,4 +19,12 @@ module.exports = defineConfig({
     //   }
     // }
   },
+  chainWebpack: config => {
+    config
+      .plugin('html')
+      .tap(args => {
+        args[0].title = "退火炉监控应用平台";
+        return args
+    })
+  },
 })

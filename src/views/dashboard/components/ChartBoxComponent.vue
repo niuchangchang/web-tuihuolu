@@ -98,6 +98,7 @@ export default {
       flex: 1;
     }
     .gauge-box {
+      width: 215px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;

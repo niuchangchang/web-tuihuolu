@@ -4,7 +4,7 @@
     <div class="search-box">
       <div class="search-item">
         <span>退火炉编号</span>
-        <el-select v-model="furnaceNo" placeholder="" clearable>
+        <el-select v-model="furnaceNo" placeholder="" clearable size="small">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
         </el-select>
       </div>
@@ -14,7 +14,7 @@
       </div> -->
       <div class="search-item">
         <span>日期</span>
-        <el-date-picker v-model="date" type="date" :disabled-date="disabledDate" value-format="YYYY-MM-DD" placeholder="请选择"></el-date-picker>
+        <el-date-picker v-model="date" type="date" :disabled-date="disabledDate" value-format="YYYY-MM-DD" size="small" placeholder="请选择"></el-date-picker>
       </div>
       <!-- <div class="search-item"> -->
         <el-button type="primary" size="small" icon="el-icon-search" class="search-item-button" @click="handleSearch">查询</el-button>

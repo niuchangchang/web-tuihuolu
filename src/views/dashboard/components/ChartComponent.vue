@@ -66,23 +66,25 @@ export default {
       const { heatParaDataList } = this
       const list = [{
         name: '生产炉温',
-        data: heatParaDataList.map(item => item.tCurr)
+        data: heatParaDataList.map(item => item.tCurr||0)
       }, {
         name: '工艺炉温',
-        data: heatParaDataList.map(item => item.tfPara)
+        data: heatParaDataList.map(item => item.tfPara||0)
       }, {
         name: '计算炉温',
-        data: heatParaDataList.map(item => item.t0Cal)
+        data: heatParaDataList.map(item => item.t0Cal||0)
       }, {
         name: '表面温度',
-        data: heatParaDataList.map(item => item.t1Surface)
+        data: heatParaDataList.map(item => item.t1Surface||0)
       }, {
         name: '重心温度',
-        data: heatParaDataList.map(item => item.deltaT2T3)
+        data: heatParaDataList.map(item => item.deltaT2T3||0)
       }, {
         name: '中心温度',
-        data: heatParaDataList.map(item => item.t3Center)
+        data: heatParaDataList.map(item => item.t3Center||0)
       }]
+
+     //console.log(list);
       return list
     }
   },

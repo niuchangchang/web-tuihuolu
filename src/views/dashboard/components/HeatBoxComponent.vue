@@ -95,12 +95,15 @@ export default {
     display: flex;
     gap: 35px;
     padding-top: 20px;
+    justify-content: center;
   }
   &-chart {
-    flex: 1;
+    // flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 360px;
+    // height: 330px;
     .current-temp {
       position: relative;
       padding-left: 24px;
