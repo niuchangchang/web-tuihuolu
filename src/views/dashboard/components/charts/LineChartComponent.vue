@@ -51,7 +51,8 @@ export default {
         grid: {
           left: 20,
           right: 32,
-          bottom: props.showDataZoom ? 60 : 40,
+          // bottom: props.showDataZoom ? 60 : 40,
+          bottom: 40,
           top: 100,
           containLabel: true
         },
@@ -65,7 +66,6 @@ export default {
           fontSize: 16,
           padding: [0],
           formatter: function(params) {
-            
             var str = `<div style="background:url( ${require("@/assets/line_tooltip_bg.png")}) no-repeat center center; background-size: 100% 100%; width: 200px; height: 220px; padding: 10px 12px 14px; display: flex; flex-direction: column; justify-content: space-between;">`;
             params.forEach(function (item) {
               str += `<div style="color:${item.color||''};font-size:20px;">${item.seriesName}:  ${item.value||'0'}</div>`;
@@ -77,10 +77,17 @@ export default {
         toolbox:{
           feature:{
             dataZoom:{
-              show:true,
-              
+              show: true,
+              brushStyle: {
+                color: "rgba(14, 45, 96, 0.7)",
+                borderColor: '#10CBF1'
+              }
             }
-          }
+          },
+          iconStyle: {
+            borderColor: '#FFFFFF'
+          },
+          itemSize: 20,
         },
         legend: {
           textStyle: {
@@ -111,6 +118,7 @@ export default {
         },
         yAxis: [{
           type: 'value',
+          max: 1500,
           axisLabel: {
             color: '#FFFFFF',
           },
