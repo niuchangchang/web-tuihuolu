@@ -157,13 +157,19 @@ export default {
 
       myChart.resize()
     }
-
+    let lastClickTime = 0;
+    const clickDelay = 1000;
     const debounceEmit = _.debounce((clickItem, emit) => {
+      const currentTime = new Date().getTime();
+        if (currentTime - lastClickTime < clickDelay) {
+          return; // 如果点击间隔时间太短，则直接返回
+         }
+      lastClickTime = currentTime; // 更新最后点击时间
       emit('lineClick', {
         paraId: clickItem.paraId,
         dataNo: clickItem.dataNo
       });
-    }, 300);
+    });
     return {
       initChart,
       debounceEmit
