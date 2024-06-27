@@ -5,7 +5,7 @@
     </div>
     <div class="gauge-content">
       <div class="value-box">
-        <span class="value">{{ value }}</span>
+        <span class="value">{{ value||'' }}</span>
         {{ unit }}
       </div>
       <span>{{ title }}</span>

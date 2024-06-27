@@ -4,7 +4,7 @@
     <div class="data-list">
       <div v-for="(item, index) in dataList" :key="index" class="data-list-item">
         <span class="name">{{ `${item.name}` }}: </span>
-        <span>{{ `${item.value}` }}</span>
+        <span>{{ `${item.value||''}` }}</span>
       </div>
     </div>
     <div class="data-chart">
