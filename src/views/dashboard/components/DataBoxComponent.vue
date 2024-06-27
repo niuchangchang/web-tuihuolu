@@ -4,7 +4,7 @@
     <div class="data-list">
       <div v-for="(item, index) in dataList" :key="index" class="data-list-item">
         <span class="name">{{ `${item.name}` }}: </span>
-        <span>{{ `${item.value||''}` }}</span>
+        <span>{{ `${item.value}` }}</span>
       </div>
     </div>
     <div class="data-chart">
@@ -45,73 +45,73 @@ export default {
       const { currFurnaceParaInfo } = this
       const list = [{
         name: '记录号', // Data_ID
-        value: currFurnaceParaInfo?.dataId
+        value: currFurnaceParaInfo?.dataId||''
       }, {
         name: '退火炉炉次', // Furnace_ID
-        value: currFurnaceParaInfo?.furnaceId
+        value: currFurnaceParaInfo?.furnaceId||''
       }, {
         name: '退火炉编号', // Furnace_No
-        value: currFurnaceParaInfo?.furnaceNo
+        value: currFurnaceParaInfo?.furnaceNo||''
       }, {
         name: '退火炉名称', // Furnace_Name
-        value: currFurnaceParaInfo?.furnaceName
+        value: currFurnaceParaInfo?.furnaceName||''
       }, {
         name: '内部测温点平均值', // Furnace_T
-        value: currFurnaceParaInfo?.furnaceT
+        value: currFurnaceParaInfo?.furnaceT||''
       }, {
         name: '天然气压力', // Gas_Press
-        value: currFurnaceParaInfo?.gasPress
+        value: currFurnaceParaInfo?.gasPress||''
       }, {
         name: '瞬时流量', // Gas_flux
-        value: currFurnaceParaInfo?.gasFlux
+        value: currFurnaceParaInfo?.gasFlux||''
       }, {
         name: '天然气温度', // Gas_Temp
-        value: currFurnaceParaInfo?.gasTemp
+        value: currFurnaceParaInfo?.gasTemp||''
       }, {
         name: '累计流量', // Gas_Accum
-        value: currFurnaceParaInfo?.gasAccum
+        value: currFurnaceParaInfo?.gasAccum||''
       }, {
         name: '炉膛压力', // PCV503_PV
-        value: currFurnaceParaInfo?.pcv503Pv
+        value: currFurnaceParaInfo?.pcv503Pv||''
       }, {
         name: '退火开始/结束', // Start_stop_flag
-        value: currFurnaceParaInfo?.startStopFlag
+        value: currFurnaceParaInfo?.startStopFlag||''
       }, {
         name: '开停时间', // Start_Stop_time
-        value: currFurnaceParaInfo?.startStopTime
+        value: currFurnaceParaInfo?.startStopTime||''
       }, {
         name: 'PONO号', // PONO
-        value: currFurnaceParaInfo?.pono
+        value: currFurnaceParaInfo?.pono||''
       }, {
         name: 'HTNO炉号', // HTNO
-        value: currFurnaceParaInfo?.htno
+        value: currFurnaceParaInfo?.htno||''
       }, {
         name: '锭盘编号', // MoldModel
-        value: currFurnaceParaInfo?.moldModel
+        value: currFurnaceParaInfo?.moldModel||''
       }, {
         name: '数量', // MoldNumber
-        value: currFurnaceParaInfo?.moldNumber
+        value: currFurnaceParaInfo?.moldNumber||''
       }, {
         name: '钢种', // SteelType
-        value: currFurnaceParaInfo?.steelType
+        value: currFurnaceParaInfo?.steelType||''
       }, {
         name: '曲线号', // Para_Num
-        value: currFurnaceParaInfo?.paraNum
+        value: currFurnaceParaInfo?.paraNum||''
       }, {
         name: '动态变化炉温', // Heat_TO
-        value: currFurnaceParaInfo?.heatT0
+        value: currFurnaceParaInfo?.heatT0||''
       }, {
         name: '记录更新时间', // Data_Datetime
-        value: currFurnaceParaInfo?.dataDatetime
+        value: currFurnaceParaInfo?.dataDatetime||''
       }, {
         name: '断面类型', // Section_Type
         value: currFurnaceParaInfo?.sectionType ? '矩形' : '圆'
       }, {
         name: '断面宽', // Section_a
-        value: currFurnaceParaInfo?.sectionA
+        value: currFurnaceParaInfo?.sectionA||''
       }, {
         name: '断面厚', // Section_b
-        value: currFurnaceParaInfo?.sectionB
+        value: currFurnaceParaInfo?.sectionB||''
       }]
       return list
     },
