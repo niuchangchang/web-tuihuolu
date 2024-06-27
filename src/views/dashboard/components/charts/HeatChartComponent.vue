@@ -24,7 +24,9 @@ export default {
       initChart();
     });
     onUnmounted(() => {
-      echarts.dispose;
+      if (myChart) {
+        echarts.dispose(myChart);
+      }
     });
     watch(
       () => props.chartData,
@@ -93,7 +95,7 @@ export default {
           },
         },
         visualMap: {
-          // min: 0,
+          min: 0,
           max: 1200,
           calculable: true,
           orient: 'vertical',
@@ -102,6 +104,9 @@ export default {
           itemHeight: 220,
           textStyle: {
             color: "#5B8FF9"
+          },
+          inRange: {
+            color: ['blue', 'red']
           }
         },
         series: [{
@@ -131,10 +136,11 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
-  .charts-container {
-    width: 100%;
-    height: 100%;
-    // flex: 1;
-  }
+.charts-container {
+  width: 100%;
+  height: 100%;
+  // flex: 1;
+}
 </style>
