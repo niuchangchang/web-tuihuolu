@@ -1,7 +1,7 @@
 <template>
   <VScaleScreen width="1920" height="1080">
     <div class="app-container">
-      <HeaderComponent title="退火炉监控应用平台" @tabChange="handleTabChange" />
+      <HeaderComponent title="退火炉智能监控平台" @tabChange="handleTabChange" />
       <ContentComponent v-if="tabIndex === 1" :selectedIndex="furnaceNo" @update:selectedIndex="updateSelectedIndex" :currFurnaceParaList="currFurnaceParaList" :currFurnaceParaInfo="currFurnaceParaInfo" />
       <ChartComponent v-else :heatParaDataList="heatParaDataList" :heatParaDataInfo="heatParaDataInfo" :heatSectionData="heatSectionData" @searchChange="handleSearchChange" @lineClick="handleClickLine" />
     </div>
