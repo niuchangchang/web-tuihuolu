@@ -187,7 +187,7 @@ export default {
     margin: 40px 0 30px;
     &-item {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       width: 274px;
       height: 48px;
