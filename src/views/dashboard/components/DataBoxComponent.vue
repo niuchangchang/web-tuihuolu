@@ -4,7 +4,7 @@
     <div class="data-list">
       <div v-for="(item, index) in dataList" :key="index" class="data-list-item">
         <span class="name">{{ `${item.name}` }}: </span>
-        <span>{{ `${item.value}` }}</span>
+        <span :class="[{'value': item.name.includes('时间')}]">{{ `${item.value}` }}</span>
       </div>
     </div>
     <div class="data-chart">
@@ -101,7 +101,7 @@ export default {
         name: '动态变化炉温', // Heat_TO
         value: currFurnaceParaInfo?.heatT0||''
       }, {
-        name: '记录更新时间', // Data_Datetime
+        name: '更新时间', // Data_Datetime
         value: currFurnaceParaInfo?.dataDatetime||''
       }, {
         name: '断面类型', // Section_Type
@@ -191,17 +191,29 @@ export default {
       align-items: center;
       width: 274px;
       height: 48px;
-      padding: 10px;
+      padding: 2px 0;
       font-size: 16px;
       font-weight: bold;
       line-height: 24px;
       color: #FFFAF9;
       background: url(@/assets/data_item_bg.png) 100% 100% no-repeat;
       background-size: 100% 100%;
-      // .name {
-      //   font-weight: bold;
-      //   font-size: 16px;
-      // }
+      span {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        white-space: nowrap;
+      }
+      .name {
+        // font-weight: bold;
+        // font-size: 16px;
+        // border-right: 1px solid #10CBF1;
+      }
+      .value {
+        flex: 2;
+      }
     }
   }
   &-chart {
